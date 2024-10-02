@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class FibonacciOuNao {
 	
@@ -12,26 +13,34 @@ public class FibonacciOuNao {
 		
 		while (rodando) {
 		
-			System.out.println("\n ------------------------ \n");
-			System.out.print(" Digite um número: ");
-			int numero = scanner.nextInt();
+			try {
+				System.out.println("\n ------------------------ \n");
+				System.out.print(" Digite um número: ");
+				int numero = scanner.nextInt();
+				
+				if (fibonacci(numero)) {
+					System.out.println(" O número " + numero + " PERTENCE à sequência de Fibonacci.\n");	
+				} else {
+					System.out.println(" O número " + numero + " NÃO PERTENCE à sequência de Fibonacci.\n");
+				}
+				
+				scanner.nextLine();
+				
+				System.out.print(" Deseja testar outro numero? (S/N): ");
+				String input = scanner.nextLine().toLowerCase();
+				
+				if (input.equals("n")) {
+					rodando = false;
+				}
 			
-			if (fibonacci(numero)) {
-				System.out.println(" O número " + numero + " PERTENCE à sequência de Fibonacci.\n");	
-			} else {
-				System.out.println(" O número " + numero + " NÃO PERTENCE à sequência de Fibonacci.\n");
+			} catch (InputMismatchException e) {
+				System.out.println(" Erro: Por favor, insira um número inteiro. ");
+				scanner.nextLine();
 			}
 			
-			scanner.nextLine();
-			
-			System.out.print(" Deseja testar outro numero? (S/N): ");
-			String input = scanner.nextLine().toLowerCase();
-			
-			if (input.equals("n")) {
-				rodando = false;
-			}
-		
 		}
+		
+		scanner.close();
 		
 	}
 	
